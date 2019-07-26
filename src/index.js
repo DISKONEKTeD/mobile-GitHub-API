@@ -1,11 +1,6 @@
 import React, {Fragment} from 'react';
 import {
   SafeAreaView,
-  StyleSheet,
-  ScrollView,
-  FlatList,
-  View,
-  Text,
   StatusBar,
 } from 'react-native';
 
