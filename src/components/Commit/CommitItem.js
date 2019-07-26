@@ -10,9 +10,9 @@ const CommitItem = ({
   message,
 }) => (
   <View style={styles.commit}>
-    <Text style={styles.header}>{author}</Text>
-    <Text style={styles.info}>{hash}</Text>
-    <Text style={styles.info}>{message}</Text>
+    <Text style={[styles.header, styles.bold]}>{author}</Text>
+    <Text style={styles.info}><Text style={styles.bold}>Commit: </Text>{hash}</Text>
+    <Text style={[styles.infoMessage, styles.bold]}>{message}</Text>
   </View>
 );
 

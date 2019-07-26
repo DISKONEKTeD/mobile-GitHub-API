@@ -3,6 +3,7 @@ import {
   StyleSheet,
   FlatList,
   RefreshControl,
+  View,
 } from 'react-native';
 import axios from 'axios';
 
@@ -19,19 +20,52 @@ class Home extends Component {
     this.state = {
       commits: data,
       refresh: false,
+      loading: false,
+      page: 1,
+      per_page: 4,
+      end: false,
     }
   }
 
   componentDidMount() {
-  
+    this.setState({
+      loading: true,
+    })
+    // this.fetchAPI()
   }
 
   fetchAPI = async () => {
-
+    let url = API_URI + `?page=${this.state.page}&per_page=${this.state.per_page}`
+    const { data: commits } = await axios.get(url);
+    if(commits && commits.length && commits.length > 0){
+      this.setState({
+        commits: [...this.state.commits, ...commits],
+        loading: false,
+        page: this.state.page + 1,
+      })
+    } else {
+      this.setState({
+        loading: false,
+        end: true,
+      })
+    }
   }
 
   handleRefresh = () => {
+    this.setState({
+      refresh: true,
+    });
 
+
+    this.setState({
+      refresh: false,
+    });
+  }
+
+  handleMore = () => {
+    if(this.state.loading === false && this.state.end === false){
+      this.fetchAPI()
+    }
   }
 
   render() {
@@ -65,7 +99,7 @@ class Home extends Component {
 
 const styles = StyleSheet.create({
   flatList: {
-    backgroundColor: colors.blue,
+    backgroundColor: colors.white,
   },
   whiteBg: {
     color: colors.white,

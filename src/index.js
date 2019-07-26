@@ -8,7 +8,7 @@ import Home from './screens/Home';
 
 export default () => (
   <Fragment>
-    <StatusBar barStyle="light-content" />
+    <StatusBar barStyle="dark-content" />
     <SafeAreaView style={{ flex: 1 }}>
       <Home />
     </SafeAreaView>
