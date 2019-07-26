@@ -3,14 +3,12 @@ import {
   StyleSheet,
   FlatList,
   RefreshControl,
-  View,
 } from 'react-native';
 import { DotIndicator } from 'react-native-indicators';
 import axios from 'axios';
 
 import colors from '../data/colors';
 import { CommitItem, Separator } from '../components/Commit';
-import { data } from '../data/data';
 
 const API_URI = 'https://api.github.com/repos/diskonekted/mobile-GitHub-API/commits';
 
@@ -102,7 +100,7 @@ class Home extends Component {
                     size={10}
                     count={5}
                     color={styles.black}
-                    style={{ marginTop: 25, marginBottom: 25 }}
+                    style={styles.indicator}
                   />
                 )
               }
@@ -121,6 +119,10 @@ const styles = StyleSheet.create({
   blueBg: {
     color: colors.blue,
   },
+  indicator: {
+    marginTop: 25,
+    marginBottom: 25,
+  }
 });
 
 export default Home;
