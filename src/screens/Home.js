@@ -5,6 +5,7 @@ import {
   RefreshControl,
   View,
 } from 'react-native';
+import { DotIndicator } from 'react-native-indicators';
 import axios from 'axios';
 
 import colors from '../data/colors';
@@ -18,11 +19,11 @@ class Home extends Component {
   constructor(props){
     super(props)
     this.state = {
-      commits: data,
+      commits: [],
       refresh: false,
       loading: false,
       page: 1,
-      per_page: 4,
+      per_page: 2,
       end: false,
     }
   }
@@ -31,7 +32,7 @@ class Home extends Component {
     this.setState({
       loading: true,
     })
-    // this.fetchAPI()
+    this.fetchAPI()
   }
 
   fetchAPI = async (refresh) => {
@@ -56,12 +57,15 @@ class Home extends Component {
     this.setState({
       refresh: true,
       page: 1,
-    });
-    this.fetchAPI(true);
+      end: false,
+    }, async () => this.fetchAPI(true));
   }
 
   handleMore = () => {
     if(this.state.loading === false && this.state.end === false){
+      this.setState({
+        loading: true,
+      })
       this.fetchAPI()
     }
   }
@@ -89,6 +93,18 @@ class Home extends Component {
                   colors={[colors.blue]} // android
                   tintColor={styles.blueBg} // ios
                 />
+              }
+              onEndReachedThreshold={0.7}
+              onEndReached={this.handleMore}
+              ListFooterComponent={
+                this.state.loading && (
+                  <DotIndicator
+                    size={10}
+                    count={5}
+                    color={styles.black}
+                    style={{ marginTop: 25, marginBottom: 25 }}
+                  />
+                )
               }
             />
         );
