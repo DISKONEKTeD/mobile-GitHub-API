@@ -33,9 +33,13 @@ class Home extends Component {
     this.fetchAPI()
   }
 
+  /*
+  * @param refresh: Whether we wish to refresh the commits array/data
+  */
   fetchAPI = async (refresh) => {
     let url = API_URI + `?page=${this.state.page}&per_page=${this.state.per_page}`
     const { data: commits } = await axios.get(url);
+
     if(commits && commits.length && commits.length > 0){
       this.setState({
         commits: refresh ? [...commits] : [...this.state.commits, ...commits],
@@ -43,7 +47,7 @@ class Home extends Component {
         refresh: false,
         page: this.state.page + 1,
       })
-    } else {
+    } else { // no new data found
       this.setState({
         loading: false,
         end: true,
@@ -60,6 +64,7 @@ class Home extends Component {
   }
 
   handleMore = () => {
+    // do not fire if no new data has been found
     if(this.state.loading === false && this.state.end === false){
       this.setState({
         loading: true,
