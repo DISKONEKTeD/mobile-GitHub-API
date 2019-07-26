@@ -30,13 +30,13 @@ class Home extends Component {
     this.setState({
       loading: true,
     })
-    this.fetchAPI()
+    this.fetchCommits()
   }
 
   /*
   * @param refresh: Whether we wish to refresh the commits array/data
   */
-  fetchAPI = async (refresh) => {
+  fetchCommits = async (refresh) => {
     let url = API_URI + `?page=${this.state.page}&per_page=${this.state.per_page}`
     const { data: commits } = await axios.get(url);
 
@@ -60,7 +60,7 @@ class Home extends Component {
       refresh: true,
       page: 1,
       end: false,
-    }, async () => this.fetchAPI(true));
+    }, async () => this.fetchCommits(true));
   }
 
   handleMore = () => {
@@ -69,7 +69,7 @@ class Home extends Component {
       this.setState({
         loading: true,
       })
-      this.fetchAPI()
+      this.fetchCommits()
     }
   }
 
