@@ -1,2 +1,2 @@
-#Mobile GitHub API Commit Retriever
+# Mobile GitHub API Commit Retriever
 Retrieves the latest commits
