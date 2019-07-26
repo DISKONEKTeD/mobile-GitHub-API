@@ -34,13 +34,14 @@ class Home extends Component {
     // this.fetchAPI()
   }
 
-  fetchAPI = async () => {
+  fetchAPI = async (refresh) => {
     let url = API_URI + `?page=${this.state.page}&per_page=${this.state.per_page}`
     const { data: commits } = await axios.get(url);
     if(commits && commits.length && commits.length > 0){
       this.setState({
-        commits: [...this.state.commits, ...commits],
+        commits: refresh ? [...commits] : [...this.state.commits, ...commits],
         loading: false,
+        refresh: false,
         page: this.state.page + 1,
       })
     } else {
@@ -54,12 +55,9 @@ class Home extends Component {
   handleRefresh = () => {
     this.setState({
       refresh: true,
+      page: 1,
     });
-
-
-    this.setState({
-      refresh: false,
-    });
+    this.fetchAPI(true);
   }
 
   handleMore = () => {
