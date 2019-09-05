@@ -11,7 +11,7 @@ import colors from '../data/colors';
 import { CommitItem, Separator } from '../components/Commit';
 
 const API_URI = 'https://api.github.com/repos/diskonekted/mobile-GitHub-API/commits';
-
+//
 class Home extends Component {
 
   constructor(props){
